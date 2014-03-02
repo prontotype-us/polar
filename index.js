@@ -7,7 +7,7 @@
   metaserve = require('metaserve');
 
   setup_app = function(config) {
-    var app;
+    var RedisStore, app, _ref;
     app = express();
     app.set('views', config.view_dir || './views');
     app.set('view engine', config.view_engine || 'jade');
@@ -17,6 +17,15 @@
     });
     app.use(express.cookieParser());
     app.use(express.bodyParser());
+    if (config.use_sessions != null) {
+      RedisStore = require('connect-redis')(express);
+      app.use(express.session({
+        store: new RedisStore({
+          host: ((_ref = config.redis) != null ? _ref.host : void 0) || 'localhost'
+        }),
+        secret: config.session_secret
+      }));
+    }
     app.use(app.router);
     app.use(metaserve(config.static_dir || './static'));
     app.start = function() {

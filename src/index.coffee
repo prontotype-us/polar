@@ -21,6 +21,12 @@ setup_app = (config) ->
     app.use express.bodyParser()
 
     # TODO: Hook in user provided middleware
+    if config.use_sessions?
+        RedisStore = require('connect-redis')(express)
+        app.use express.session
+            store: new RedisStore
+                host: config.redis?.host || 'localhost'
+            secret: config.session_secret
 
     # Use routes defined by app.get etc.
     app.use app.router
