@@ -2,6 +2,10 @@
     "name": "polar",
     "version": "0.1.0",
     "description": "boilerplate for a basic express setup",
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/spro/polar.git"
+    },
     "author": {
         "name": "Sean Robertson",
         "url": "http://sprobertson.com/"
