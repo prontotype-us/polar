@@ -1,0 +1,17 @@
+{
+    "name": "polar",
+    "version": "0.1.0",
+    "description": "boilerplate for a basic express setup",
+    "author": {
+        "name": "Sean Robertson",
+        "url": "http://sprobertson.com/"
+    },
+    "keywords": [
+        "express",
+        "prontotype"
+    ],
+    "dependencies": {
+        "express": "3.4.x",
+        "metaserve": "0.1.x"
+    }
+}
