@@ -4,7 +4,9 @@ metaserve = require 'metaserve'
 setup_app = (config) ->
 
     # Initialize express
-    app = express()
+    app = config.app || express()
+    if config.app
+        app = config.app
 
     # Use view directory and engine defined in config
     # Default directory is ./views with Jade templates
@@ -20,13 +22,17 @@ setup_app = (config) ->
     app.use express.cookieParser()
     app.use express.bodyParser()
 
-    # TODO: Hook in user provided middleware
+    # Use sessions if desired
     if config.use_sessions?
         RedisStore = require('connect-redis')(express)
         app.use express.session
             store: new RedisStore
                 host: config.redis?.host || 'localhost'
             secret: config.session_secret
+
+    # Hook in user provided middleware
+    for middleware in config.middleware
+        app.use middleware
 
     # Use routes defined by app.get etc.
     app.use app.router
