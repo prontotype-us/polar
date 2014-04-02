@@ -31,8 +31,9 @@ setup_app = (config) ->
             secret: config.session_secret
 
     # Hook in user provided middleware
-    for middleware in config.middleware
-        app.use middleware
+    if config.middleware?
+        for middleware in config.middleware
+            app.use middleware
 
     # Use routes defined by app.get etc.
     app.use app.router

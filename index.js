@@ -13,7 +13,6 @@
     app = config.app || express();
     if (config.app) {
       app = config.app;
-      console.log('using a custom app');
     }
     app.set('views', config.view_dir || './views');
     app.set('view engine', config.view_engine || 'jade');
@@ -32,10 +31,12 @@
         secret: config.session_secret
       }));
     }
-    _ref1 = config.middleware;
-    for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
-      middleware = _ref1[_i];
-      app.use(middleware);
+    if (config.middleware != null) {
+      _ref1 = config.middleware;
+      for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+        middleware = _ref1[_i];
+        app.use(middleware);
+      }
     }
     app.use(app.router);
     app.use(metaserve(config.static_dir || './static'));
