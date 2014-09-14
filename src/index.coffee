@@ -7,6 +7,8 @@ setup_app = (config) ->
     app = config.app || express()
     if config.app
         app = config.app
+        delete config.app
+    app.config = config
 
     # Use view directory and engine defined in config
     # Default directory is ./views with Jade templates
