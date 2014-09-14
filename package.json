@@ -1,6 +1,6 @@
 {
     "name": "polar",
-    "version": "0.1.3",
+    "version": "0.1.4",
     "description": "boilerplate for a basic express setup",
     "repository": {
         "type": "git",
