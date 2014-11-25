@@ -41,7 +41,7 @@ setup_app = (config) ->
     app.use app.router
 
     # Fall back to metaserve for static files
-    app.use metaserve(config.static_dir || './static')
+    app.use metaserve(config.metaserve || config.static_dir || './static')
 
     app.start = ->
         app.listen config.port, ->

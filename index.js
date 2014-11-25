@@ -40,7 +40,7 @@
       }
     }
     app.use(app.router);
-    app.use(metaserve(config.static_dir || './static'));
+    app.use(metaserve(config.metaserve || config.static_dir || './static'));
     app.start = function() {
       return app.listen(config.port, function() {
         return console.log("Listening on :" + config.port);
