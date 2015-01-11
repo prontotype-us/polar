@@ -21,8 +21,8 @@ setup_app = (config) ->
         next()
 
     # Use express's cookie and form parsers
-    app.use express.cookieParser()
-    app.use express.bodyParser()
+    app.use express.cookieParser() unless config.no_cookie_parser
+    app.use express.bodyParser() unless config.no_body_parser
 
     # Use sessions if desired
     if config.use_sessions?
