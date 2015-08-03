@@ -1,7 +1,7 @@
 express = require 'express'
 metaserve = require 'metaserve'
 
-setup_app = (config) ->
+setup = (config) ->
 
     # Initialize express
     app = config.app || express()
@@ -16,6 +16,7 @@ setup_app = (config) ->
     app.set 'view engine', config.view_engine || 'jade'
 
     # Logging middleware
+    # TODO: Apache log format
     app.use (req, res, next) ->
         console.log "[#{new Date().toISOString()}] #{ req.method } #{ req.url }"
         next()
@@ -40,9 +41,19 @@ setup_app = (config) ->
     # Use routes defined by app.get etc.
     app.use app.router
 
-    # Fall back to metaserve for static files
-    app.use metaserve(config.metaserve || config.static_dir || './static')
+    # Use metaserve for static files
+    app.use metaserve config.metaserve || config.static_dir ||
+        compilers:
+            css: [
+                require('metaserve-bouncer')(ext: 'bounced.css') if !config.debug
+                require('metaserve-css-styl')()
+            ]
+            js: [
+                require('metaserve-bouncer')(ext: 'bounced.js') if !config.debug
+                require('metaserve-js-coffee-reactify')(ext: 'coffee', uglify: !config.debug)
+            ]
 
+    # Start the app and listen on config.port
     app.start = ->
         app.listen config.port, ->
             console.log "Listening on :#{ config.port }"
@@ -50,6 +61,5 @@ setup_app = (config) ->
     return app
 
 # Export
-module.exports =
-    setup_app: setup_app
+module.exports = setup
 
