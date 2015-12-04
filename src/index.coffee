@@ -1,7 +1,15 @@
 express = require 'express'
 metaserve = require 'metaserve'
 
-setup = (config) ->
+merge_objs = (objs) ->
+    o = {}
+    for obj in objs
+        for k, v of obj
+            o[k] = v
+    o
+
+setup = (configs...) ->
+    config = merge_objs configs
 
     # Initialize express
     app = config.app || express()
