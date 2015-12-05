@@ -61,6 +61,9 @@ setup = (configs...) ->
                 require('metaserve-js-coffee-reactify')(ext: 'coffee', uglify: !config.debug)
             ]
 
+    app.use config.fallback || (req, res, next) ->
+        res.send 404, "Could not find page."
+
     # Start the app and listen on config.port
     app.start = ->
         app.listen config.port, ->
