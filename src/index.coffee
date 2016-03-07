@@ -38,12 +38,12 @@ setup = (configs...) ->
     app.use express.bodyParser() unless config.no_body_parser
 
     # Use sessions if desired
-    if config.use_sessions?
+    if config.session?
         RedisStore = require('connect-redis')(express)
-        app.use express.session
+        app.use express.session merge_objs
             store: new RedisStore
                 host: config.redis?.host || 'localhost'
-            secret: config.session_secret
+        , config.session
 
     # Hook in user provided middleware
     if config.middleware?
