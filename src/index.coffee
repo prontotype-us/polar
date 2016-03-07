@@ -62,7 +62,7 @@ setup = (configs...) ->
             ]
             js: [
                 require('metaserve-bouncer')(ext: 'bounced.js') if !config.debug
-                require('metaserve-js-coffee-reactify')(ext: 'coffee', uglify: !config.debug)
+                require('metaserve-js-coffee-reactify')()
             ]
 
     config.using?.map (using) -> app.use using
