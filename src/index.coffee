@@ -65,6 +65,8 @@ setup = (configs...) ->
                 require('metaserve-js-coffee-reactify')(ext: 'coffee', uglify: !config.debug)
             ]
 
+    config.using?.map (using) -> app.use using
+
     app.use config.fallback || (req, res, next) ->
         res.send 404, "Could not find page."
 
