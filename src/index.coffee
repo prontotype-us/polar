@@ -1,15 +1,19 @@
 express = require 'express'
 metaserve = require 'metaserve'
 
-merge_objs = (objs) ->
-    o = {}
-    for obj in objs
-        for k, v of obj
-            o[k] = v
-    o
+merge_objs = (o1, o2) ->
+    for k, v of o2
+        o1[k] = v
+    return o1
+
+merge_all = (objs) ->
+    oa = {}
+    for o in objs
+        merge_objs oa, o
+    return oa
 
 setup = (configs...) ->
-    config = merge_objs configs
+    config = merge_all configs
 
     # Initialize express
     app = config.app || express()
