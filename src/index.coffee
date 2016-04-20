@@ -1,19 +1,9 @@
 express = require 'express'
 metaserve = require 'metaserve'
-
-merge_objs = (o1, o2) ->
-    for k, v of o2
-        o1[k] = v
-    return o1
-
-merge_all = (objs) ->
-    oa = {}
-    for o in objs
-        merge_objs oa, o
-    return oa
+utils = require './utils'
 
 setup = (configs...) ->
-    config = merge_all configs
+    config = utils.merge_all configs
 
     # Initialize express
     app = config.app || express()
@@ -40,7 +30,7 @@ setup = (configs...) ->
     # Use sessions if desired
     if config.session?
         RedisStore = require('connect-redis')(express)
-        app.use express.session merge_objs
+        app.use express.session utils.merge_objs
             store: new RedisStore
                 host: config.redis?.host || 'localhost'
         , config.session
