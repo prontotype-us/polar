@@ -1,6 +1,6 @@
 {
     "name": "polar",
-    "version": "0.2.7",
+    "version": "0.2.8",
     "description": "boilerplate for a basic express setup with metaserve",
     "repository": {
         "type": "git",
@@ -17,8 +17,8 @@
         "jade": "1.9.x",
         "polar-cookieParser": "0.1.x",
         "metaserve": "0.4.x",
-        "metaserve-js-coffee-reactify": "0.0.x",
-        "metaserve-bouncer": "0.0.x"
+        "metaserve-js-coffee-reactify": "0.1.x",
+        "metaserve-bouncer": "0.1.x"
     },
     "keywords": [
         "express",
