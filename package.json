@@ -17,7 +17,9 @@
         "jade": "1.9.x",
         "polar-cookieParser": "0.1.x",
         "metaserve": "0.4.x",
-        "metaserve-bouncer": "0.1.x"
+        "metaserve-bouncer": "0.1.x",
+        "metaserve-css-styl": "0.1.x",
+        "metaserve-js-coffee-reactify": "0.1.x"
     },
     "keywords": [
         "express",
