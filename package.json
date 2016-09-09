@@ -1,6 +1,6 @@
 {
     "name": "polar",
-    "version": "0.2.9",
+    "version": "0.2.10",
     "description": "boilerplate for a basic express setup with metaserve",
     "repository": {
         "type": "git",
