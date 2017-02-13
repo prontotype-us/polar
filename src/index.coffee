@@ -35,6 +35,7 @@ setup = (configs...) ->
             key: "sid:" + (config.session.cookie?.domain || "*"),
             store: new RedisStore
                 host: config.redis?.host || 'localhost'
+            cookie: maxAge: 1000 * 60 * 60 * 24 * 30 * 3 # 3 months
         , config.session
 
     # Hook in user provided middleware

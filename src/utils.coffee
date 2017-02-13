@@ -1,6 +1,9 @@
 merge_objs = (o1, o2) ->
     for k, v of o2
-        o1[k] = v
+        if typeof o1[k] == 'object'
+            merge_objs o1[k], v
+        else
+            o1[k] = v
     return o1
 
 merge_all = (objs) ->
