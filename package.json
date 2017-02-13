@@ -1,6 +1,6 @@
 {
     "name": "polar",
-    "version": "0.2.10",
+    "version": "0.2.11",
     "description": "boilerplate for a basic express setup with metaserve",
     "repository": {
         "type": "git",
@@ -11,6 +11,9 @@
         "url": "http://sprobertson.com/"
     },
     "main": "lib/index.js",
+    "scripts": {
+        "build": "coffee -o lib -c src"
+    },
     "dependencies": {
         "connect-redis": "1.4.5",
         "express": "3.4.x",
