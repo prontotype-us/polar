@@ -47,16 +47,16 @@ setup = (configs...) ->
     app.use app.router
 
     # Use metaserve for static files
-    app.use metaserve config.metaserve || config.static_dir ||
-        compilers:
-            css: [
-                require('metaserve-bouncer')(ext: 'bounced.css') if !config.debug
-                require('metaserve-css-styl')()
-            ]
-            js: [
-                require('metaserve-bouncer')(ext: 'bounced.js') if !config.debug
-                require('metaserve-js-coffee-reactify')()
-            ]
+    app.use metaserve config.metaserve?.config or config.static_dir, config.metaserve?.compilers or {
+        css: [
+            require('metaserve-bouncer') if !config.debug
+            require('metaserve-css-styl')
+        ]
+        js: [
+            require('metaserve-bouncer') if !config.debug
+            require('metaserve-js-coffee-reactify')
+        ]
+    }
 
     config.using?.map (using) -> app.use using
 
