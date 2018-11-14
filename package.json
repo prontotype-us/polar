@@ -1,6 +1,6 @@
 {
     "name": "polar",
-    "version": "0.3.1",
+    "version": "0.4.0",
     "description": "boilerplate for a basic express setup with metaserve",
     "repository": {
         "type": "git",
@@ -15,14 +15,13 @@
         "build": "coffee -o lib -c src"
     },
     "dependencies": {
-        "connect-redis": "1.4.5",
-        "express": "3.4.x",
-        "jade": "1.9.x",
+        "connect-redis": "3.4.0",
+        "express": "^4.16.4",
+        "express-busboy": "^7.0.0",
+        "metaserve": "^0.8.4",
+        "metaserve-bouncer": "0.2.1",
         "polar-cookieParser": "0.1.x",
-        "metaserve": "0.6.x",
-        "metaserve-bouncer": "0.2.x",
-        "metaserve-css-styl": "0.2.x",
-        "metaserve-js-coffee-reactify": "0.2.x"
+        "pug": "^2.0.3"
     },
     "keywords": [
         "express",
