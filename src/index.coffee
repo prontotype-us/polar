@@ -1,7 +1,8 @@
 express = require 'express'
 express_busboy = require 'express-busboy'
+express_session = require 'express-session'
 metaserve = require 'metaserve'
-cookieParser = require 'polar-cookieParser'
+# cookieParser = require 'polar-cookieParser'
 utils = require './utils'
 
 setup = (configs...) ->
@@ -27,7 +28,7 @@ setup = (configs...) ->
 
     # Use express's cookie and form parsers
     app.use express.json(config.json)
-    app.use cookieParser(null, config.session?.cookie) unless config.no_cookie_parser
+    # app.use cookieParser(null, config.session?.cookie) unless config.no_cookie_parser
 
     # Use express-busboy for file uploads
     express_busboy.extend app, Object.assign (config.busboy or {}), {
@@ -36,8 +37,8 @@ setup = (configs...) ->
 
     # Use sessions if desired
     if config.session?
-        RedisStore = require('connect-redis')(express)
-        app.use express.session utils.merge_objs
+        RedisStore = require('connect-redis')(express_session)
+        app.use express_session utils.merge_objs
             key: "sid:" + (config.session.cookie?.domain or "*"),
             store: new RedisStore
                 host: config.redis?.host or 'localhost'
