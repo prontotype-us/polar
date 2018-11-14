@@ -1,7 +1,6 @@
 express = require 'express'
 express_busboy = require 'express-busboy'
 express_session = require 'express-session'
-metaserve = require 'metaserve'
 # cookieParser = require 'polar-cookieParser'
 utils = require './utils'
 
@@ -16,8 +15,8 @@ setup = (configs...) ->
     app.config = config
 
     # Use view directory and engine defined in config
-    # Default directory is ./views with Jade templates
-    app.set 'views', config.view_dir or './views'
+    # Default directory is same as static dir
+    app.set 'views', config.view_dir or config.static_dir or '.'
     app.set 'view engine', config.view_engine or 'pug'
 
     # Logging middleware
@@ -50,22 +49,19 @@ setup = (configs...) ->
         for middleware in config.middleware
             app.use middleware
 
-    # Use metaserve for static files
-    app.use metaserve config.metaserve?.config or config.static_dir, config.metaserve?.compilers or {
-        css: [
-            require('metaserve-bouncer') if !config.debug
-            require('metaserve-css-postcss')
-        ]
-        js: [
-            require('metaserve-bouncer') if !config.debug
-            require('metaserve-js-coffee-reactify')
-        ]
-    }
-
-    config.using?.map (using) -> app.use using
-
-    app.use config.fallback or (req, res, next) ->
-        res.status(404).send "Could not find page."
+    # Use metaserve to compile static files
+    app.useMetaserve = ->
+        metaserve = require 'metaserve'
+        app.use metaserve config.metaserve?.config or config.static_dir, config.metaserve?.compilers or {
+            css: [
+                require('metaserve-bouncer') if !config.debug
+                require('metaserve-css-postcss')
+            ]
+            js: [
+                require('metaserve-bouncer') if !config.debug
+                require('metaserve-js-coffee-reactify')
+            ]
+        }
 
     # Start the app and listen on config.port
     app.start = ->
