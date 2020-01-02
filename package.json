@@ -19,7 +19,7 @@
         "express": "^4.16.4",
         "express-busboy": "^7.0.0",
         "express-session": "^1.15.6",
-        "metaserve": "^0.8.4",
+        "metaserve": "^0.8.5",
         "metaserve-bouncer": "0.2.1",
         "polar-cookieParser": "0.1.x",
         "pug": "^2.0.3"
